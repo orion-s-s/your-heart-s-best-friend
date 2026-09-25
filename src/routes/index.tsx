@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Activity, ArrowRight, HeartPulse, ShieldAlert, Stethoscope, Wind } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import {
+  Activity,
+  ArrowDown,
+  ArrowRight,
+  HeartPulse,
+  Microscope,
+  ShieldAlert,
+  Stethoscope,
+  Wind,
+} from "lucide-react";
 import bypassImage from "@/assets/cabg-illustration.png";
 import valveImage from "@/assets/aortic-valve-illustration.png";
 import aortaImage from "@/assets/aortic-dissection-illustration.png";
@@ -8,10 +17,10 @@ import aortaImage from "@/assets/aortic-dissection-illustration.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Операции на сердце и сосудах — простыми словами" },
-      { name: "description", content: "Причины, диагностика, лечение и понятные схемы коронарного шунтирования, протезирования клапана и хирургии аорты." },
-      { property: "og:title", content: "Как проходят операции на сердце" },
-      { property: "og:description", content: "Медицинский атлас кардиохирурга без сложных терминов и пугающих картинок." },
+      { title: "Хирургия сердца — наглядный атлас операций" },
+      { name: "description", content: "Коронарное шунтирование, операции на клапанах и аорте — понятными словами и наглядными медицинскими иллюстрациями." },
+      { property: "og:title", content: "Хирургия сердца — наглядный атлас операций" },
+      { property: "og:description", content: "Как устроены операции на сердце: причины, диагностика, лечение и восстановление без сложной латыни." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -23,14 +32,14 @@ type Topic = "bypass" | "valve" | "aorta";
 
 const topics = {
   bypass: {
+    number: "01",
     short: "Шунтирование",
     title: "Коронарное шунтирование",
-    kicker: "Когда сердцу нужен объездной путь",
-    description: "Если коронарная артерия сильно сужена, создаём новый путь для крови в обход препятствия. Как хороший навигатор — только маршрут рассчитывается на годы.",
+    kicker: "Новый маршрут для крови",
+    description: "Если коронарная артерия сильно сужена, создаём путь в обход препятствия. Почти как объезд на карте — только маршрут рассчитывается на годы.",
     image: bypassImage,
-    alt: "Схема коронарного шунтирования с обходным сосудом",
-    color: "text-primary",
-    soft: "bg-sky-soft",
+    alt: "Мультяшная медицинская схема коронарного шунтирования с шунтом от восходящей аорты",
+    tone: "topic-sky",
     cause: "Атеросклеротическая бляшка постепенно сужает сосуд. Влияют наследственность, курение, давление, диабет, холестерин и питание.",
     symptoms: "Давление или жжение за грудиной при нагрузке, одышка, снижение выносливости. Иногда болезнь долго не подаёт сигналов.",
     diagnostic: "Коронарография показывает точную карту сужений. ЭКГ, ЭхоКГ и нагрузочные тесты помогают оценить работу сердца.",
@@ -43,14 +52,14 @@ const topics = {
     ],
   },
   valve: {
+    number: "02",
     short: "Аортальный клапан",
     title: "Протезирование аортального клапана",
-    kicker: "Новый клапан для правильного потока",
-    description: "Клапан должен открываться свободно и закрываться герметично. Если механизм серьёзно повреждён, его ремонтируют или заменяют.",
+    kicker: "Новый клапан для верного потока",
+    description: "Клапан должен свободно открываться и герметично закрываться. Если механизм серьёзно повреждён, его ремонтируют или заменяют.",
     image: valveImage,
-    alt: "Схема протезирования аортального клапана",
-    color: "text-secondary",
-    soft: "bg-mint-soft",
+    alt: "Мультяшная медицинская схема протезирования аортального клапана",
+    tone: "topic-mint",
     cause: "Чаще клапан кальцинируется с возрастом, бывает врождённо двустворчатым или повреждается после воспаления.",
     symptoms: "Одышка, боль в груди, головокружение или обмороки, отёки. Сердцу приходится работать с заметной перегрузкой.",
     diagnostic: "Главный метод — ЭхоКГ. Исследование измеряет площадь отверстия, скорость потока и степень обратного заброса крови.",
@@ -63,14 +72,14 @@ const topics = {
     ],
   },
   aorta: {
+    number: "03",
     short: "Хирургия аорты",
     title: "Расслаивающая аневризма аорты",
     kicker: "Когда счёт действительно идёт на часы",
     description: "Во внутренней оболочке аорты возникает разрыв, и кровь разделяет слои её стенки. Это экстренная ситуация, а не тема для ожидания до понедельника.",
     image: aortaImage,
-    alt: "Схема расслоения стенки аорты",
-    color: "text-coral",
-    soft: "bg-coral-soft",
+    alt: "Мультяшная медицинская схема расслоения стенки аорты",
+    tone: "topic-coral",
     cause: "Главные факторы — высокое давление, наследственные болезни соединительной ткани, врождённые особенности аорты и атеросклероз.",
     symptoms: "Внезапная очень сильная боль в груди или спине, холодный пот, слабость, потеря сознания, различие пульса или давления на руках.",
     diagnostic: "КТ-ангиография быстро показывает протяжённость расслоения. В нестабильном состоянии используют срочную ЭхоКГ.",
@@ -84,135 +93,111 @@ const topics = {
   },
 } as const;
 
+const topicKeys = Object.keys(topics) as Topic[];
+
 function Index() {
   const [active, setActive] = useState<Topic>("bypass");
   const topic = topics[active];
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-40 -top-48 size-[34rem] rounded-full bg-primary/15 blur-3xl motion-safe:animate-[floaty_9s_ease-in-out_infinite]" />
-        <div className="absolute right-[-14rem] top-[34rem] size-[38rem] rounded-full bg-secondary/14 blur-3xl motion-safe:animate-[floaty_11s_ease-in-out_infinite_reverse]" />
-        <div className="absolute bottom-40 left-1/3 size-[28rem] rounded-full bg-coral/10 blur-3xl" />
-      </div>
-
-      <header className="relative z-20 mx-auto max-w-7xl px-4 pt-4 sm:px-6 sm:pt-6">
-        <nav className="glass-panel flex h-16 items-center justify-between rounded-2xl px-3 sm:px-5" aria-label="Основная навигация">
-          <a href="#catalog" className="flex items-center gap-3">
-            <span className="relative grid size-10 place-items-center rounded-xl bg-foreground text-primary-foreground">
-              <HeartPulse size={20} aria-hidden="true" />
-              <span className="absolute inset-0 rounded-xl border border-primary/50 motion-safe:animate-[pulse-ring_3s_ease-out_infinite]" />
-            </span>
-            <span className="leading-tight">
-              <strong className="block font-display text-sm">Кардиохирург</strong>
-              <span className="hidden text-[11px] text-muted-foreground sm:block">Сердце · сосуды · вены</span>
-            </span>
+    <main className="min-h-screen overflow-hidden bg-background text-foreground">
+      <header className="relative z-30 border-b-2 border-ink/10 bg-background/90 backdrop-blur-lg">
+        <nav className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6" aria-label="Основная навигация">
+          <a href="#catalog" className="flex items-center gap-3" aria-label="К каталогу операций">
+            <span className="logo-mark"><HeartPulse size={21} strokeWidth={2.5} aria-hidden="true" /></span>
+            <span className="leading-tight"><strong className="block font-display text-sm">Кардиохирург</strong><span className="text-[11px] font-semibold text-muted-foreground">Атлас операций</span></span>
           </a>
-          <div className="hidden items-center gap-7 text-sm font-medium text-muted-foreground lg:flex">
-            <a className="transition-colors hover:text-primary" href="#catalog">Операции</a>
-            <a className="transition-colors hover:text-primary" href="#how-it-works">Как проходит</a>
-            <a className="transition-colors hover:text-primary" href="#recovery">После операции</a>
+          <div className="hidden items-center gap-7 text-sm font-bold text-muted-foreground md:flex">
+            <a className="nav-link" href="#catalog">Операции</a><a className="nav-link" href="#how-it-works">Что делает хирург</a><a className="nav-link" href="#recovery">Восстановление</a>
           </div>
-          <a href="#contact" className="rounded-xl bg-foreground px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary">Записаться</a>
+          <a href="#contact" className="action-button">Записаться <ArrowRight size={16} aria-hidden="true" /></a>
         </nav>
       </header>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-4 pb-12 pt-16 sm:px-6 sm:pt-24">
-        <div className="max-w-4xl">
-          <span className="glass-panel inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold text-primary">
-            <span className="size-1.5 rounded-full bg-secondary" /> Медицинский атлас без латыни
-          </span>
-          <h1 className="mt-6 max-w-[13ch] font-display text-5xl font-bold leading-[.98] tracking-normal sm:text-7xl lg:text-8xl">
-            Операции на сердце <span className="text-primary">простыми словами</span>
-          </h1>
-          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-            Что заболело, как это находят и что именно делает хирург. Понятные схемы вместо страшных картинок — и ровно столько юмора, сколько выдерживает кардиология.
-          </p>
-          <a href="#catalog" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:-translate-y-0.5">
-            Выбрать операцию <ArrowRight size={17} aria-hidden="true" />
-          </a>
+      <section className="hero-atlas relative min-h-[calc(100svh-4.5rem)] border-b-2 border-ink/10">
+        <div className="mx-auto grid min-h-[calc(100svh-4.5rem)] max-w-7xl items-center px-4 pb-16 pt-12 sm:px-6 lg:grid-cols-[1.1fr_.9fr] lg:pb-24 lg:pt-16">
+          <div className="relative z-10 max-w-3xl">
+            <p className="section-label"><span className="label-dot" /> Анатомия без латыни</p>
+            <h1 className="mt-6 max-w-[11ch] font-display text-5xl font-extrabold leading-[1.02] sm:text-7xl lg:text-8xl">Хирургия сердца <span className="marker-word">наглядно</span></h1>
+            <p className="mt-7 max-w-xl text-lg font-medium leading-relaxed text-muted-foreground sm:text-xl">Что происходит с сердцем, как это находят и что именно делает хирург. Серьёзная медицина — человеческим языком.</p>
+            <a href="#catalog" className="action-button action-button-primary mt-8">Открыть атлас <ArrowDown size={17} aria-hidden="true" /></a>
+            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-xs font-bold uppercase text-muted-foreground">
+              <span>Причины</span><span>Диагностика</span><span>Операция</span><span>Восстановление</span>
+            </div>
+          </div>
+          <div className="hero-illustration" aria-hidden="true">
+            <span className="doodle-note">обходной путь</span>
+            <img src={bypassImage} alt="" width={900} height={900} />
+          </div>
         </div>
+        <div className="hero-index" aria-hidden="true">АТЛАС / 01—03</div>
       </section>
 
-      <section id="catalog" className="relative z-10 mx-auto max-w-7xl scroll-mt-6 px-4 py-12 sm:px-6 sm:py-20">
-        <div className="mb-7 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-          <div><p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">Каталог операций</p><h2 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Выберите тему</h2></div>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">Каждая вкладка устроена одинаково: причина, симптомы, диагностика, лечение и сама операция.</p>
-        </div>
+      <section id="catalog" className="scroll-mt-18 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="section-heading"><div><p className="section-label">Каталог операций</p><h2 className="mt-3 font-display text-3xl font-extrabold sm:text-5xl">Выберите, что разобрать</h2></div><p>У каждой темы один понятный маршрут: от причины заболевания до восстановления после операции.</p></div>
 
-        <div className="glass-panel flex gap-2 overflow-x-auto rounded-2xl p-2" role="tablist" aria-label="Операции">
-          {(Object.keys(topics) as Topic[]).map((key) => (
-            <button key={key} type="button" role="tab" aria-selected={active === key} onClick={() => setActive(key)} className={`min-w-fit flex-1 rounded-xl px-4 py-3 text-sm font-semibold transition-all ${active === key ? "bg-foreground text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-card hover:text-foreground"}`}>
-              {topics[key].short}
-            </button>
-          ))}
-        </div>
+          <div className="topic-tabs mt-9" role="tablist" aria-label="Операции">
+            {topicKeys.map((key) => (
+              <button key={key} type="button" role="tab" aria-selected={active === key} onClick={() => setActive(key)} className={`topic-tab ${topics[key].tone} ${active === key ? "is-active" : ""}`}>
+                <span>{topics[key].number}</span><strong>{topics[key].short}</strong><ArrowRight size={18} aria-hidden="true" />
+              </button>
+            ))}
+          </div>
 
-        <article className="glass-panel mt-5 overflow-hidden rounded-3xl" role="tabpanel">
-          <div className="grid lg:grid-cols-[.92fr_1.08fr]">
-            <div className={`${topic.soft} relative min-h-[22rem] overflow-hidden p-4 sm:min-h-[32rem] sm:p-8`}>
-              <img key={topic.image} src={topic.image} alt={topic.alt} width={1200} height={1200} className="h-full w-full object-contain mix-blend-multiply" />
-              <span className="absolute bottom-5 left-5 rounded-lg bg-card px-3 py-2 text-xs font-medium text-muted-foreground backdrop-blur-lg">Схема без натурализма</span>
+          <article className={`operation-sheet mt-5 ${topic.tone}`} role="tabpanel">
+            <div className="operation-visual">
+              <span className="figure-number">РИС. {topic.number}</span>
+              <img key={topic.image} src={topic.image} alt={topic.alt} width={1200} height={1200} />
+              <span className="figure-caption">Схематично · без натурализма</span>
             </div>
-            <div className="p-6 sm:p-10 lg:p-12">
-              <p className={`text-xs font-semibold uppercase tracking-[.18em] ${topic.color}`}>{topic.kicker}</p>
-              <h2 className="mt-3 font-display text-3xl font-bold sm:text-5xl">{topic.title}</h2>
-              <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">{topic.description}</p>
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                <InfoCard icon={<Activity size={18} />} label="Причина" text={topic.cause} />
-                <InfoCard icon={<HeartPulse size={18} />} label="Как проявляется" text={topic.symptoms} />
-                <InfoCard icon={<Stethoscope size={18} />} label="Диагностика" text={topic.diagnostic} />
-                <InfoCard icon={<Wind size={18} />} label="Лечение" text={topic.treatment} />
+            <div className="operation-copy">
+              <p className="section-label">{topic.kicker}</p>
+              <h2 className="mt-3 font-display text-3xl font-extrabold sm:text-5xl">{topic.title}</h2>
+              <p className="mt-5 text-base font-medium leading-relaxed text-muted-foreground sm:text-lg">{topic.description}</p>
+              <div className="medical-path mt-8">
+                <InfoRow index="1" icon={<Activity size={18} />} label="Причина" text={topic.cause} />
+                <InfoRow index="2" icon={<HeartPulse size={18} />} label="Как проявляется" text={topic.symptoms} />
+                <InfoRow index="3" icon={<Microscope size={18} />} label="Диагностика" text={topic.diagnostic} />
+                <InfoRow index="4" icon={<Wind size={18} />} label="Лечение" text={topic.treatment} />
               </div>
             </div>
-          </div>
-        </article>
-      </section>
-
-      <section id="how-it-works" className="relative z-10 mx-auto max-w-7xl scroll-mt-6 px-4 py-12 sm:px-6 sm:py-20">
-        <div className="max-w-2xl"><p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">Что делает хирург</p><h2 className="mt-2 font-display text-3xl font-bold sm:text-4xl">{topic.title}: четыре важных шага</h2></div>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {topic.operation.map(([title, text], index) => (
-            <div key={title} className="glass-panel flex gap-5 rounded-2xl p-6">
-              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-foreground font-display text-sm font-bold text-primary-foreground">0{index + 1}</span>
-              <div><h3 className="font-display text-lg font-bold">{title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p></div>
-            </div>
-          ))}
+          </article>
         </div>
       </section>
 
-      <section id="recovery" className="relative z-10 border-y border-border bg-card/35 py-16 backdrop-blur-sm sm:py-24">
+      <section id="how-it-works" className="border-y-2 border-ink/10 bg-ink py-16 text-paper sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
-            <div><p className="text-xs font-semibold uppercase tracking-[.2em] text-secondary">После операции</p><h2 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Восстановление — тоже часть лечения</h2><p className="mt-4 leading-relaxed text-muted-foreground">Сроки индивидуальны: ориентир задаёт лечащая команда, а не чужая история из интернета.</p></div>
-            <div className="grid gap-3 sm:grid-cols-3">
-              {[["Первые дни", "Наблюдение, дыхательная гимнастика, обезболивание и первые шаги."], ["Первые недели", "Постепенное увеличение ходьбы, контроль раны, давления и лекарств."], ["Дальше", "Кардиореабилитация, контроль факторов риска и возвращение к привычной жизни."]].map(([title, text]) => (
-                <div key={title} className="glass-panel rounded-2xl p-5"><h3 className="font-display font-bold">{title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p></div>
-              ))}
+          <div className="section-heading section-heading-dark"><div><p className="section-label">Что делает хирург</p><h2 className="mt-3 max-w-3xl font-display text-3xl font-extrabold sm:text-5xl">{topic.title}: четыре важных решения</h2></div><Stethoscope className="hidden text-primary sm:block" size={52} strokeWidth={1.5} aria-hidden="true" /></div>
+          <div className="steps-grid mt-10">
+            {topic.operation.map(([title, text], index) => <div key={title} className="step-item"><span>0{index + 1}</span><div><h3 className="font-display text-lg font-bold">{title}</h3><p className="mt-2 text-sm leading-relaxed text-paper-muted">{text}</p></div></div>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="recovery" className="py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="recovery-layout">
+            <div><p className="section-label">После операции</p><h2 className="mt-3 font-display text-3xl font-extrabold sm:text-5xl">Восстановление — часть лечения</h2><p className="mt-5 max-w-xl font-medium leading-relaxed text-muted-foreground">Сроки индивидуальны: ориентир задаёт лечащая команда, а не чужая история из интернета.</p></div>
+            <div className="recovery-line">
+              {[["Первые дни", "Наблюдение, дыхательная гимнастика, обезболивание и первые шаги."], ["Первые недели", "Постепенно больше ходьбы, контроль раны, давления и лекарств."], ["Дальше", "Кардиореабилитация, контроль факторов риска и возвращение к привычной жизни."]].map(([title, text], index) => <div key={title} className="recovery-step"><span>{index + 1}</span><div><h3 className="font-display font-bold">{title}</h3><p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p></div></div>)}
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
-        <div className="glass-panel relative overflow-hidden rounded-3xl p-7 sm:p-12">
-          <div className="absolute -right-20 -top-24 size-72 rounded-full bg-primary/16 blur-3xl" />
-          <div className="relative flex flex-col justify-between gap-7 md:flex-row md:items-center">
-            <div><h2 className="font-display text-3xl font-bold">Здесь будут контакты врача</h2><p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">Имя, клиника, телефон и способ записи добавятся после получения реальных данных — без выдуманных регалий и цифр.</p></div>
-            <span className="inline-flex w-fit items-center gap-2 rounded-xl border border-primary/25 bg-sky-soft px-4 py-3 text-sm font-semibold text-primary"><Stethoscope size={18} /> Кардиохирург</span>
-          </div>
-        </div>
-        <div className="mt-6 flex items-start gap-3 rounded-2xl border border-coral/30 bg-coral-soft/70 p-4 text-sm text-foreground">
-          <ShieldAlert className="mt-0.5 shrink-0 text-coral" size={19} />
-          <p><strong>Важно:</strong> материал носит ознакомительный характер. При внезапной сильной боли в груди, одышке, холодном поте или потере сознания немедленно вызывайте скорую помощь.</p>
+      <section id="contact" className="border-t-2 border-ink/10 bg-primary-soft py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="contact-row"><div><p className="section-label">Консультация</p><h2 className="mt-3 font-display text-3xl font-extrabold">Здесь будут контакты врача</h2><p className="mt-3 max-w-2xl text-sm font-medium leading-relaxed text-muted-foreground">Имя, клиника, телефон и способ записи добавятся после получения реальных данных — без выдуманных регалий и цифр.</p></div><span className="doctor-stamp"><Stethoscope size={20} /> Кардиохирург</span></div>
+          <div className="warning-note mt-8"><ShieldAlert className="shrink-0" size={22} /><p><strong>Важно:</strong> материал носит ознакомительный характер. При внезапной сильной боли в груди, одышке, холодном поте или потере сознания немедленно вызывайте скорую помощь.</p></div>
         </div>
       </section>
 
-      <footer className="relative z-10 border-t border-border px-4 py-8 text-center text-xs text-muted-foreground">Медицинский атлас кардиохирурга · Информация не заменяет очную консультацию</footer>
+      <footer className="border-t-2 border-ink/10 px-4 py-8 text-center text-xs font-semibold text-muted-foreground">Медицинский атлас кардиохирурга · Информация не заменяет очную консультацию</footer>
     </main>
   );
 }
 
-function InfoCard({ icon, label, text }: { icon: React.ReactNode; label: string; text: string }) {
-  return <div className="rounded-2xl border border-border bg-card/65 p-4"><div className="flex items-center gap-2 text-sm font-bold text-foreground"><span className="text-primary" aria-hidden="true">{icon}</span>{label}</div><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p></div>;
+function InfoRow({ index, icon, label, text }: { index: string; icon: ReactNode; label: string; text: string }) {
+  return <div className="info-row"><span className="info-index">{index}</span><span className="info-icon" aria-hidden="true">{icon}</span><div><h3>{label}</h3><p>{text}</p></div></div>;
 }
